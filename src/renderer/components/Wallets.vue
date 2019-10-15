@@ -108,11 +108,8 @@
   export default {
     name: 'Wallets',
     data() {
-      const net = localStorage.getItem('net')
-      const network = net === 'TEST_NET' ? this.$t('common.testNet') : this.$t('common.mainNet');
       const index = sessionStorage.getItem('Wallets_Tab') || 1;
       return {
-        network: network,
         viewBtn: false,
         activeTab: index
       }

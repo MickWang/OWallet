@@ -2,6 +2,7 @@ export default {
   common: {
     testNet: 'TestNet',
     mainNet: 'MainNet',
+    privateNet: 'PrivateNet',
     copied: 'Copied!',
     confirmPwdTips: 'Please confirm and input the password your wallet.',
     confirmTips: 'Please confirm the transfer.',
@@ -412,7 +413,9 @@ export default {
     noOep4Contract: 'The OEP-44 contract is not found',
     networkError: 'Network error! Please try later.',
     oep4Exists: 'You have already added this OEP-4 token.',
-    go: 'Go'
+      go: 'Go',
+      crossChainTransfer: 'Cross-chain Transfer ',
+      devTool: 'Developer Tool'
   },
 
   transfer: {
@@ -429,6 +432,7 @@ export default {
     lang: 'Language',
     testNet: 'TestNet',
     mainNet: 'MainNet',
+    privateNet: 'PrivateNet',
     en: 'English',
     zh: '中文',
     pathTit: 'Path: ',
@@ -444,6 +448,7 @@ export default {
     setNodeSuccess: 'The node address has been set t: ',
     notInstallationPath: 'Please do not set to the installation location of OWallet.',
     notSetPath: 'You did not set the keystore path.'
+    
   },
 
   ledgerWallet: {

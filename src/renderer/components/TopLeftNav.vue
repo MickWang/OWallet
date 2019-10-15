@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { open } from '../../core/utils'
+import { open, getNetName } from '../../core/utils'
 
 export default {
   name: "TopLeftNav",
@@ -55,7 +55,7 @@ export default {
     network: {
       get() {
         const net = this.$store.state.Setting.network;
-        return net === "TEST_NET" ? "TestNet" : "MainNet";
+        return getNetName(net);
       }
     }
   },

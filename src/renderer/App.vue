@@ -389,4 +389,32 @@
 .left-footer {
   margin-top:20px;
 }
+
+.btn-dropdown {
+  width: 120px;
+  height: 34px;
+  background: #f4f4f6;
+  font-size: 14px;
+  font-family: AvenirNext-Medium;
+  font-weight: 500;
+  color: rgba(25, 107, 216, 1);
+  border-radius: 0;
+  border: none;
+}
+.dropdown-item:hover {
+  color: #196bd8;
+}
+.left-btn-container {
+  display: flex;
+  justify-content: space-between;
+}
+.left-btn-more {
+    display:flex;
+}
+.vertical-line {
+    width:2px;
+    height:34px;
+    background:#F4F4F6;
+    margin-right:29px;
+}
 </style>

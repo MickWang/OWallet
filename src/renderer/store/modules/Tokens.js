@@ -3,13 +3,18 @@ import httpService, {
   getTokenListUrl,
   getTokenBalanceUrl
 } from '../../../core/utils'
+import {NET_TYPE} from '../../../core/consts'
 
 // should contain native, oep4, oep5, oep8 tokens
 const oep4_default = {
   'TEST_NET': {},
-  'MAIN_NET': {}
+    'MAIN_NET': {},
+    'PRIVATE_NET': {}
 }
-const oep4Tokens = localStorage.getItem('oep4Tokens') ? JSON.parse(localStorage.getItem('oep4Tokens')) : oep4_default;
+
+
+const oep4Temp = localStorage.getItem('oep4Tokens') ? JSON.parse(localStorage.getItem('oep4Tokens')) : {};
+const oep4Tokens = Object.assign({}, oep4_default, oep4Temp);
 
 
 
@@ -79,28 +84,34 @@ const actions = {
         return {list, total}
     },
     
-    async fetchTokenBalances({commit,state}, {address}) {
-        const url = getTokenBalanceUrl('oep4',address)
+    async fetchTokenBalances({ commit, state, dispatch }, { address }) {
         const net = localStorage.getItem('net')
-        const res = await httpService.get(url)
-        const balances = [];
-        const oep4s = state.oep4Tokens[net];
-        for (let k of Object.keys(oep4s)) {
-            const oep4 = oep4s[k]
-            const item = Object.assign({}, oep4)
-            item.balance = 0;
-            for(let r of res.result) {
-                console.log(r.asset_name, oep4.symbol)
-                if (r.asset_name === oep4.symbol) {
-                    item.balance = r.balance;
-                    break;
+        let balances = [];
+        if (net === NET_TYPE.PRIVATE_NET) {
+            balances = await dispatch('queryBalanceForOep4', address)
+        } else {
+            const url = getTokenBalanceUrl('oep4',address)
+            const net = localStorage.getItem('net')
+            const res = await httpService.get(url)
+            const oep4s = state.oep4Tokens[net];
+            for (let k of Object.keys(oep4s)) {
+                const oep4 = oep4s[k]
+                const item = Object.assign({}, oep4)
+                item.balance = 0;
+                for(let r of res.result) {
+                    console.log(r.asset_name, oep4.symbol)
+                    if (r.asset_name === oep4.symbol) {
+                        item.balance = r.balance;
+                        break;
+                    }
                 }
+                balances.push(item)
             }
-            balances.push(item)
+            
         }
         console.log(balances)
         commit('UPDATE_OEP4_BALANCES', {
-          balances
+            balances
         })
         return balances
     }   

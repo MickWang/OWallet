@@ -8,17 +8,23 @@
           <label for="network-selection">{{ $t('setting.net') }}</label>
           <select name="network-selection" id="network-selection" class="form-control" v-model="net"
                   @change="changeNet">
-            <option value="TEST_NET">{{ $t('setting.testNet') }}</option>
             <option value="MAIN_NET">{{ $t('setting.mainNet') }}</option>
+            <option value="TEST_NET">{{ $t('setting.testNet') }}</option>
+            <option value="PRIVATE_NET">{{ $t('setting.privateNet') }}</option>
           </select>
         </div>
 
         <div class="form-group">
           <label for="network-selection">{{ $t('setting.nodeAddress') }}</label>
           <select name="network-selection" id="network-selection" class="form-control" v-model="nodeAddress"
-                  @change="changeNode">
+                  @change="changeNode" v-show="net !== 'PRIVATE_NET'">
             <option v-for="item of nodeList" :key="item"  :value="item" >{{item}}</option>
           </select>
+          <div v-show="net === 'PRIVATE_NET'">
+            <a-input v-model="nodeAddress" placeholder="Enter the node address" />
+            <a-button type="primary" class="btn-save-node" size="default" @click="savePrivateNetNodeAddress">保存</a-button>
+          </div>
+          
         </div>
 
         <div class="form-group form-group-top">
@@ -74,15 +80,22 @@
           this.nodeList = TEST_NET_LIST;
           this.nodeAddress = TEST_NET_LIST[0]
           localStorage.setItem('nodeAddress', this.nodeAddress)
-        } else {
+          setTimeout(() => {
+            const net =  this.$t('common.testNet');
+            this.$message.success(this.$t('setting.setNetworkSuccess') + net);
+            }, 100)
+        } else if(this.net === 'MAIN_NET') {
           this.nodeList = MAIN_NET_LIST;
           this.nodeAddress = MAIN_NET_LIST[0]
           localStorage.setItem('nodeAddress', this.nodeAddress)
+          setTimeout(() => {
+            const net =  this.$t('common.mainNet');
+            this.$message.success(this.$t('setting.setNetworkSuccess') + net);
+            }, 100)
+        } else {
+          this.nodeAddress = localStorage.getItem('privateNodeAddress') || '';
         }
-        setTimeout(() => {
-          const net = this.net === 'TEST_NET' ? this.$t('common.testNet') : this.$t('common.mainNet');
-          this.$message.success(this.$t('setting.setNetworkSuccess') + net);
-        }, 100)
+        
       },
       changeNode() {
         localStorage.setItem('nodeAddress', this.nodeAddress)
@@ -110,6 +123,14 @@
           window.location.reload();
           this.savePath = filePath[0]
         })
+      },
+      savePrivateNetNodeAddress() {
+        // TODO check node address with restClient.getHeight
+        localStorage.setItem('nodeAddress', this.nodeAddress)
+        localStorage.setItem('privateNodeAddress', this.nodeAddress)
+        
+          const net =  this.$t('common.privateNet');
+          this.$message.success(this.$t('setting.setNetworkSuccess') + net);
       }
     },
     components: {
@@ -148,4 +169,8 @@
     font-size: 16px;
     font-family: AvenirNext;
   }
+  .btn-save-node {
+    margin-top:10px;
+  }
+ 
 </style>
