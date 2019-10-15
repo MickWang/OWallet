@@ -14,7 +14,7 @@ import {
   BigNumber
 } from 'bignumber.js'
 import numeral from 'numeral'
-import {Crypto, RestClient} from 'ontology-ts-sdk'
+import {Crypto, RestClient, WebsocketClient} from 'ontology-ts-sdk'
 const opn = require('opn')
 const {
     BrowserWindow
@@ -92,6 +92,12 @@ export function getRestClient() {
   let url = getNodeUrl();
   const restClient = new RestClient(url);
   return restClient;
+}
+
+export function getWebsocketClient() {
+    let url = getNodeUrl().replace('20334', '20335');
+    const socket = new WebsocketClient(url);
+    return socket;
 }
 
 export function convertNumber2Str(num, decimal = 0, division) {

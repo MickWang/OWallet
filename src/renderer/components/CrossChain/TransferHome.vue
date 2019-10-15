@@ -69,7 +69,7 @@
 
 <style scoped>
   .send-container {
-    width: 600px;
+    /* width: 600px; */
     margin: 0 auto;
     padding-bottom: 5.3rem;
   }
@@ -77,5 +77,7 @@
   .steps {
     height: 68px;
     padding: 0 4rem;
+    width: 600px;
+    margin: 0 auto;
   }
 </style>

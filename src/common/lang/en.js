@@ -319,7 +319,8 @@ export default {
     txMgmt: 'Transaction management',
     createTransferFailed: 'Create transfer transaction failed.',
     createTransferSuccess: 'Create transfer transaction succeed.',
-    txSendingTochain: 'This transaction is sending to the blockchain now.'
+    txSendingTochain: 'This transaction is sending to the blockchain now.',
+    blockchain: 'Blockchain'
   },
 
   pax: {

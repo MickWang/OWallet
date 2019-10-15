@@ -318,7 +318,9 @@ export default {
     txMgmt: '多签交易管理',
     createTransferFailed: '创建转账交易失败',
     createTransferSuccess: '创建转账交易成功',
-    txSendingTochain: '该交易正在发送上链。'
+      txSendingTochain: '该交易正在发送上链。',
+      blockchain: 'Blockchain'
+    
   },
 
   pax: {
