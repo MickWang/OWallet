@@ -171,8 +171,10 @@ export default {
                 this.pagination.total = res.length;
                 this.fetchList()
             })
-        } else {
+        } else if(net === 'MAIN_NET'){
             this.fetchList()
+        } else {
+            //do nothing
         }
         
         this.$store.dispatch('fetchBlockCountdown')

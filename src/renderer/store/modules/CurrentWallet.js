@@ -1,7 +1,13 @@
 import axios from 'axios'
 import {
-  getBalanceUrl
- } from '../../../core/utils'
+    getBalanceUrl,
+    getRestClient,
+    formatOngValue
+} from '../../../core/utils'
+ 
+import { NET_TYPE } from '../../../core/consts';
+import { Crypto } from 'ontology-ts-sdk';
+import BigNumber from 'bignumber.js';
 
 const state = {
     wallet : {
@@ -102,34 +108,53 @@ const actions = {
     clearTransferBalance({commit}) {
         commit('CLEAR_CURRENT_TRANSFER')
     },
-    getNativeBalance({commit}, {address}) {
-        const url = getBalanceUrl(address, 'NATIVE');
+    async getNativeBalance({ commit }, { address }) {
         const balance = {}
-        return axios.get(url).then(res => {
-          if (res.data.result) {
-            for (let r of res.data.result) {
-              if (r.asset_name === 'ong') {
-                balance.ong = r.balance;
-              }
-              if (r.asset_name === 'waitboundong') {
-                balance.waitBoundOng = r.balance;
-              }
-              if (r.asset_name === 'unboundong') {
-                balance.unboundOng = r.balance;
-              }
-              if (r.asset_name === 'ont') {
-                balance.ont = r.balance;
-              }
-            }
+        if (localStorage.getItem('net') === NET_TYPE.PRIVATE_NET) {
+            const restClient = getRestClient();
+            const res1 = await restClient.getBalance(new Crypto.Address(address))
+                console.log(res1)
+                balance.ont = res1.Result.ont
+            balance.ong = formatOngValue(res1.Result.ong)
+            
+            const res2 = await restClient.getUnboundOng(new Crypto.Address(address))
+                balance.unboundOng = formatOngValue(res2.Result)
+
+            const res3 = await restClient.getGrangOng(new Crypto.Address(address))
+                balance.waitBoundOng = formatOngValue(res3.Result)
             commit('UPDATE_NATIVE_BALANCE', {
-              balance
+                balance
             })
             return balance; // get balance succeed
-          }
-        }).catch(err => {
-          console.log(err)
-          return null; // get balance failed
-        })
+        } else {
+            const url = getBalanceUrl(address, 'NATIVE');
+            return axios.get(url).then(res => {
+                if (res.data.result) {
+                    for (let r of res.data.result) {
+                        if (r.asset_name === 'ong') {
+                            balance.ong = r.balance;
+                        }
+                        if (r.asset_name === 'waitboundong') {
+                            balance.waitBoundOng = r.balance;
+                        }
+                        if (r.asset_name === 'unboundong') {
+                            balance.unboundOng = r.balance;
+                        }
+                        if (r.asset_name === 'ont') {
+                            balance.ont = r.balance;
+                        }
+                    }
+                    commit('UPDATE_NATIVE_BALANCE', {
+                        balance
+                    })
+                    return balance; // get balance succeed
+                }
+            }).catch(err => {
+                console.log(err)
+                return null; // get balance failed
+            })
+        }
+        
     }
 }
 

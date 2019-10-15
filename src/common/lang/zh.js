@@ -2,6 +2,7 @@ export default {
   common: {
     testNet: 'TestNet',
     mainNet: 'Main Net',
+    privateNet: 'Private Net',
     copied: '已复制！',
     confirmPwdTips: '请确认并输入钱包密码。',
     confirmTips: '请确认转账',
@@ -411,7 +412,9 @@ export default {
     noOep4Contract: '在链上找不到该OEP4合约',
     networkError: '网络错误！请稍后重试。',
     oep4Exists: '您已经添加过该OEP-4 Token。',
-    go: '查看详情'
+      go: '查看详情',
+      crossChainTransfer: '跨链交易',
+    devTool: '开发者工具'
   },
 
   transfer: {
@@ -427,7 +430,8 @@ export default {
     net: '网络',
     lang: '语言',
     testNet: 'ONT测试网络',
-    mainNet: 'ONT主网',
+      mainNet: 'ONT主网',
+      privateNet: 'ONT私网',    
     en: 'English',
     zh: '中文',
     pathTit: '当前路径： ',

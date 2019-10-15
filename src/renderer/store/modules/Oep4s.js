@@ -133,7 +133,6 @@ const actions = {
         }
     },
     async queryBalanceForOep4({commit, dispatch, state}, address) {
-        dispatch('showLoadingModals');
         try {
             const net = localStorage.getItem('net');
 
@@ -153,12 +152,12 @@ const actions = {
                 ...item,
                 balance: temp[index]
             }))
-            commit('UPDATE_OEP4S', {oep4s: newOep4s})
-            dispatch('hideLoadingModals');            
+            commit('UPDATE_OEP4S', { oep4s: newOep4s })   
+            return newOep4s;
         } catch(err) {
-            dispatch('hideLoadingModals');
             console.log(err);
             alert('Network error.Please try later.')
+            return []
         }
     },
     async queryTxForOep4({commit, dispatch}, {address,oep4s}) {

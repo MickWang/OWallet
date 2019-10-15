@@ -120,6 +120,11 @@ export default new Router({
       component: require('@/components/CommonWallet/SendHome').default
     },
     {
+      path: '/crossChainTransfer',
+      name: 'CrossChainTransfer',
+      component: require('@/components/CrossChain/TransferHome').default
+    },
+    {
       path: '/commonWalletReceive/:walletType',
       name: 'CommonReceive',
       component: require('@/components/CommonWallet/CommonReceive').default

@@ -3,6 +3,12 @@ export const GAS_PRICE = '500';
 export const GAS_LIMIT = '20000';
 
 export const ONT_CONTRACT = '0000000000000000000000000000000000000001';
+
+export const NET_TYPE = {
+    TEST_NET: 'TEST_NET',
+    MAIN_NET: 'MAIN_NET',
+    PRIVATE_NET: 'PRIVATE_NET'
+}
 export const TEST_NET = 'http://polaris1.ont.io';
 export const MAIN_NET = 'http://dappnode1.ont.io';
 
