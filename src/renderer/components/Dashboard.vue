@@ -270,9 +270,9 @@
                                             @click="toCrossChainTransfer()"
                                         >{{$t('commonWalletHome.crossChainTransfer')}}</span>
                                     </a-menu-item>
-                                    <a-menu-item key="2" @click="toDevTool()">
+                                    <!-- <a-menu-item key="2" @click="toDevTool()">
                                         <span>{{$t('commonWalletHome.devTool')}}</span>
-                                    </a-menu-item>
+                                    </a-menu-item> -->
                                 </a-menu>
                                 <a-button class="btn-dropdown">
                                     {{$t('common.more')}}
@@ -527,6 +527,7 @@ export default {
                 });
             }
         },
+
         getNep5Balance() {
             const NEO_TRAN = 100000000;
             SDK.getNeoBalance(this.currentWallet.address).then(res => {

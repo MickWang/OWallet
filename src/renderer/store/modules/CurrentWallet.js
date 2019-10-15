@@ -39,7 +39,8 @@ const state = {
         gas:0.01,
         coPayers : [],
         sponsorPayer:'',
-        isRedeem: false
+        isRedeem: false,
+        to_chainId: '' // for cross chain transfer
     },
     pendingTx: {
         
