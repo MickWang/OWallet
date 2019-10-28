@@ -27,7 +27,7 @@ export const MAIN_NET_LIST = [
   'http://dappnode4.ont.io',
 ]
 //test environment
-export const ONT_PASS_NODE = 'https://app.ont.io'
+export const ONT_PASS_NODE = 'https://service-test.onto.app'
 //prod 
 export const ONT_PASS_NODE_PRD = 'https://service.onto.app'
 
